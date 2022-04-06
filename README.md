@@ -1,4 +1,4 @@
-# Bots
+# Microsoft Bot Framwork Exercise
 
 Demonstrate the core capabilities of the Microsoft Bot Framework
 
