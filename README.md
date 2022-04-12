@@ -4,57 +4,72 @@ Demonstrate the core capabilities of the Microsoft Bot Framework
 
 This bot has been created using [Bot Framework](https://dev.botframework.com), it shows how to create a simple bot that accepts input from the user and echoes it back.
 
-## Prerequisites
-
-- [Node.js](https://nodejs.org) version 10.14.1 or higher
-
-```bash
-# determine node version
-node --version
-```
-
 ## To run the bot
+
+There are multiple ways of making your bot session data persistent.
 
 Choose your storage strategy according to the [storage factory](factories/storageFactory.js).
 
-- Option 1: Memory
+- Option 1: Memory, no need to create resources
 
 - Option 2: Cosmos DB:
 
-```s
-az login
-az group create -n <name> -l <location>
-az cosmosdb create -n <name> -g pluralSight
-az cosmosdb sql database create -a <account> -g <group> -n <name> --throughput 400
-az cosmosdb sql container create -g <group> -a <account> -d greetingbot -n messages --partition-key-path "/messages"    
+```sh
+group='rg-bot'
+location='eastus2'
+cosmosAccount='cosmos-botframework-999'
+cosmosDatabase='greetingbot'
+
+az group create -n $group -l $location
+az cosmosdb create -n $cosmosAccount -g $group
+az cosmosdb sql database create -a $cosmosAccount -g $group -n $cosmosDatabase
+
+az cosmosdb sql container create \
+  -a $cosmosAccount \
+  -g $group \
+  -d $cosmosDatabase \
+  -n 'messages' \
+  --partition-key-path '/messages'    
 ```
 - Option 3: Storage Account:
 
-```s
-az login
-az group create -n <name> -l <location>
-az storage account create -n <name> -g <group> -l <location> --kind StorageV2 --sku Standard_LRS
-az storage container create -n messages --connection-string "<CONNECTION_STRING>"
+```sh
+group='rg-bot'
+location='eastus2'
+storage='stbotfrmk999'
+
+az group create -n $group -l $location
+
+az storage account create \
+  -n $storage \
+  -g $group \
+  -l $location \
+  --kind StorageV2 \
+  --sku Standard_LRS
+
+# get the connection string and use it here
+az storage container create -n 'messages' --connection-string '<CONNECTION_STRING>'
 ```
 
-#### Install modules
+#### Install global CLI dependencies
 
 ```bash
-npm install
-npm install -g yo generator-botbuilder
+# "yo" and "generator-botbuilder"
+yarn global add yo generator-botbuilder
 ```
 
 #### Start the bot
 
 ```bash
-npm start
+yarn install
+yarn start
 ```
 
 ## Testing the bot using Bot Framework Emulator
 
 [Bot Framework Emulator](https://github.com/microsoft/botframework-emulator) is a desktop application that allows bot developers to test and debug their bots on localhost or running remotely through a tunnel.
 
-- Install the Bot Framework Emulator version 4.3.0 or greater from [here](https://github.com/Microsoft/BotFramework-Emulator/releases)
+- Install the Bot Framework Emulator latest version from [here](https://github.com/Microsoft/BotFramework-Emulator/releases)
 
 ### Connect to the bot using Bot Framework Emulator
 
@@ -80,9 +95,5 @@ To learn more about deploying a bot to Azure, see [Deploy your bot to Azure](htt
 - [Activity processing](https://docs.microsoft.com/en-us/azure/bot-service/bot-builder-concept-activity-processing?view=azure-bot-service-4.0)
 - [Azure Bot Service Introduction](https://docs.microsoft.com/azure/bot-service/bot-service-overview-introduction?view=azure-bot-service-4.0)
 - [Azure Bot Service Documentation](https://docs.microsoft.com/azure/bot-service/?view=azure-bot-service-4.0)
-- [Azure CLI](https://docs.microsoft.com/cli/azure/?view=azure-cli-latest)
-- [Azure Portal](https://portal.azure.com)
 - [Language Understanding using LUIS](https://docs.microsoft.com/en-us/azure/cognitive-services/luis/)
 - [Channels and Bot Connector Service](https://docs.microsoft.com/en-us/azure/bot-service/bot-concepts?view=azure-bot-service-4.0)
-- [Restify](https://www.npmjs.com/package/restify)
-- [dotenv](https://www.npmjs.com/package/dotenv)

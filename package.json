@@ -16,19 +16,18 @@
         "url": "https://github.com"
     },
     "dependencies": {
-        "botbuilder": "~4.6.2",
-        "botbuilder-azure": "^4.6.2",
-        "botbuilder-dialogs": "^4.6.2",
-        "dotenv": "^8.2.0",
-        "restify": "~8.4.0"
+        "botbuilder": "^4.15.0",
+        "botbuilder-azure": "^4.15.0",
+        "botbuilder-dialogs": "^4.15.0",
+        "dotenv": "^16.0.0",
+        "restify": "^8.6.1"
     },
     "devDependencies": {
-        "eslint": "^6.6.0",
-        "eslint-config-standard": "^14.1.0",
-        "eslint-plugin-import": "^2.18.2",
-        "eslint-plugin-node": "^10.0.0",
-        "eslint-plugin-promise": "^4.2.1",
-        "eslint-plugin-standard": "^4.0.1",
-        "nodemon": "~1.19.4"
+        "eslint": "^8.13.0",
+        "eslint-config-standard": "^16.0.3",
+        "eslint-plugin-import": "^2.26.0",
+        "eslint-plugin-node": "^11.1.0",
+        "eslint-plugin-promise": "^6.0.0",
+        "nodemon": "^2.0.15"
     }
 }
